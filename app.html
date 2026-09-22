@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free Ride – Sicherheitsbegleiter</title>
+<script src="https://miro.com/app/static/sdk/v2/miro.js"></script>
+<style>
+:root{--g:#1f6f3d;--g2:#24b56a;--r:#dc2626;--a:#f59e0b;--b:#3b82f6;--m:#647067}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:#edf2ef;color:#111827;padding:8px}
+.device{max-width:560px;margin:auto;background:#11161a;padding:10px;border-radius:22px}.screen{background:#eef3f0;border-radius:15px;overflow:hidden}
+.top{background:#17221b;color:#fff;padding:10px 12px;display:flex;justify-content:space-between;font-size:12px}.brand{font-weight:900}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#7bc442;margin-right:6px}
+.panel{background:#fff;margin:8px;border:1px solid #d8dfdb;border-radius:13px;overflow:hidden}.head{padding:9px 10px;border-bottom:1px solid #e5e7eb;display:flex;justify-content:space-between;font-weight:800}
+.map{position:relative;background:#dce7dc}.overlay{position:absolute;left:7px;right:7px;bottom:7px;background:#141c17ee;color:#fff;padding:9px;border-radius:12px}.big{font-size:16px;font-weight:900}.small{font-size:11px;color:#d7e2da;margin-top:2px}
+.btns{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}.controls{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:0 8px 8px}
+button{min-height:38px;border:1px solid #cfd7d2;border-radius:9px;background:#f8faf9;padding:7px 9px;font-weight:750;cursor:pointer}button.active{background:#173c24;color:#fff;border-color:#173c24}.primary{background:var(--g)!important;color:#fff!important;border-color:var(--g)!important}.danger{background:#fff5f5!important;color:#9f1c1c!important;border-color:#f1b5b5!important}
+.stack{padding:8px;display:grid;gap:7px}.metric{border:1px solid #e1e6e3;border-radius:11px;padding:8px}.row{display:flex;justify-content:space-between;font-weight:800}.sub{font-size:11px;color:var(--m);margin-top:2px}.bar{height:6px;background:#e5e7eb;border-radius:999px;overflow:hidden;margin-top:6px}.fill{height:100%;background:#43a85d}
+.badge{font-size:10px;padding:3px 6px;border-radius:999px;background:#e7f5ea;color:#226437;font-weight:800}.warn{background:#fff3d6;color:#875800}.bad{background:#fee5e5;color:#9f1c1c}
+.alert{margin:8px;padding:9px;border-radius:11px;background:#fff7e7;border:1px solid #efd59d;display:flex;gap:7px}svg{display:block;width:100%;height:auto}.route{fill:none;stroke-linecap:round}
+.save{margin:0 8px 8px;width:calc(100% - 16px)}#msg{padding:0 10px 10px;color:#657168;font-size:11px}
+</style>
+</head>
+<body>
+<div class="device"><div class="screen">
+<div class="top"><div class="brand"><span class="dot"></span>FREE RIDE</div><div><span id="gps">GPS ●</span> · <span id="clock">00:00</span> · 🔋82%</div></div>
+<section class="panel"><div class="head"><span>GPS & sichere Route</span><span class="badge" id="rb">Sicherste Route</span></div>
+<div class="map"><svg viewBox="0 0 520 340">
+<rect width="520" height="340" fill="#dce7dc"/><path d="M35 310 C90 265 94 207 151 174 C205 144 267 173 302 126 C341 74 391 80 492 32" fill="none" stroke="#f8faf8" stroke-width="28"/>
+<path d="M3 246 C88 226 152 249 230 223 C307 198 385 206 520 244" fill="none" stroke="#7bb2cf" stroke-width="24" opacity=".65"/>
+<path id="safe" class="route" d="M35 310 C90 265 94 207 151 174 C205 144 267 173 302 126 C341 74 391 80 492 32" stroke="#24b56a" stroke-width="8"/>
+<path id="fast" class="route" d="M35 310 C114 270 183 257 237 211 C301 157 368 115 492 32" stroke="#3b82f6" stroke-width="7" opacity="0"/>
+<path id="dry" class="route" d="M35 310 C67 220 145 210 206 139 C272 62 367 47 492 32" stroke="#f59e0b" stroke-width="7" opacity="0"/>
+<circle cx="35" cy="310" r="10"/><circle cx="492" cy="32" r="11" fill="#1f6f3d"/><circle cx="72" cy="275" r="10" fill="#fff" stroke="#173c24" stroke-width="5"/>
+<circle cx="244" cy="207" r="15" fill="#dc2626"/><text x="244" y="213" text-anchor="middle" font-size="18" font-weight="900" fill="white">!</text>
+<circle cx="324" cy="107" r="15" fill="#e09a12"/><text x="324" y="113" text-anchor="middle" font-size="18" font-weight="900" fill="white">!</text>
+</svg>
+<div class="overlay"><div class="big" id="inst">↗ In 240 m rechts abbiegen</div><div class="small" id="sum">6,8 km · 24 min · niedriges Risiko</div>
+<div class="btns"><button class="active" data-route="safe">Sicher</button><button data-route="fast">Schnell</button><button data-route="dry">Trocken</button></div></div></div></section>
+
+<section class="panel"><div class="head"><span>Bike Health</span><span class="badge" id="health">92% OK</span></div><div class="stack">
+<div class="metric"><div class="row"><span>🛞 Reifen</span><span class="badge" id="tstate">OK</span></div><div class="sub" id="ttext">Druck & Profil normal</div><div class="bar"><div class="fill" id="tbar" style="width:94%"></div></div></div>
+<div class="metric"><div class="row"><span>🛑 Bremsen</span><span class="badge">OK</span></div><div class="sub">Belag ausreichend</div><div class="bar"><div class="fill" style="width:88%"></div></div></div>
+<div class="metric"><div class="row"><span>⛓️ Kette</span><span class="badge warn">Prüfen</span></div><div class="sub">Verschleiß leicht erhöht</div><div class="bar"><div class="fill" style="width:67%;background:#d89a22"></div></div></div>
+<div class="metric"><div class="row"><span>🌦 Wetter</span><span class="badge warn" id="wstate">Risiko</span></div><div class="sub" id="wtext">4°C · nasse Straße · Glätte möglich</div></div>
+</div></section>
+<div class="alert"><div>⚠️</div><div><strong id="atitle">Glätte voraus</strong><div class="sub" id="atext">In ca. 1,2 km erhöhte Rutschgefahr.</div></div></div>
+<div class="controls"><button class="primary" id="ride">▶ Fahrt starten</button><button id="weather">🌦 Wetter ändern</button><button class="danger" id="issue">🔧 Schaden simulieren</button><button id="repair">✓ Repariert</button></div>
+<button class="primary save" id="save">＋ Status auf Miro speichern</button><div id="msg">Interaktiver Prototyp · schematische Karte</div>
+</div></div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+let riding=false,sec=0,timer=null,wi=0,route='safe';
+const routes={safe:['Sicherste Route','6,8 km · 24 min · niedriges Risiko','↗ In 240 m rechts abbiegen'],fast:['Schnellste Route','5,9 km · 19 min · mittleres Risiko','↑ 600 m geradeaus'],dry:['Trockenste Route','7,4 km · 27 min · Glätte vermeiden','↖ In 180 m links halten']};
+function setRoute(r){route=r;$$('[data-route]').forEach(b=>b.classList.toggle('active',b.dataset.route===r));['safe','fast','dry'].forEach(x=>$('#'+x).style.opacity=x===r?'1':'0');$('#rb').textContent=routes[r][0];$('#sum').textContent=routes[r][1];$('#inst').textContent=routes[r][2]}
+$$('[data-route]').forEach(b=>b.onclick=()=>setRoute(b.dataset.route));
+$('#ride').onclick=()=>{riding=!riding;$('#ride').textContent=riding?'⏸ Fahrt pausieren':'▶ Fahrt fortsetzen';if(riding){$('#gps').textContent='GPS ● LIVE';timer=setInterval(()=>{sec++;$('#clock').textContent=String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0')},1000)}else{clearInterval(timer);$('#gps').textContent='GPS ●'}};
+const ws=[['Risiko','badge warn','4°C · nasse Straße · Glätte möglich','Glätte voraus','In ca. 1,2 km erhöhte Rutschgefahr.'],['Gut','badge','13°C · trocken · gute Sicht','Bedingungen stabil','Keine kritischen Wettergefahren erkannt.'],['Schnee','badge bad','-1°C · Schneefall · hohe Glättegefahr','Schnee & Eis','Hohe Rutschgefahr. Trockenste Alternative empfohlen.']];
+$('#weather').onclick=()=>{wi=(wi+1)%ws.length;let w=ws[wi];$('#wstate').className=w[1];$('#wstate').textContent=w[0];$('#wtext').textContent=w[2];$('#atitle').textContent=w[3];$('#atext').textContent=w[4];if(wi===2)setRoute('dry')};
+$('#issue').onclick=()=>{$('#tstate').className='badge bad';$('#tstate').textContent='Schaden';$('#ttext').textContent='Druckverlust erkannt';$('#tbar').style.width='28%';$('#tbar').style.background='#dc2626';$('#health').className='badge bad';$('#health').textContent='61% WARNUNG';$('#atitle').textContent='Reifenschaden erkannt';$('#atext').textContent='Geschwindigkeit reduzieren und sichere Haltemöglichkeit suchen.'};
+$('#repair').onclick=()=>{$('#tstate').className='badge';$('#tstate').textContent='OK';$('#ttext').textContent='Druck & Profil normal';$('#tbar').style.width='94%';$('#tbar').style.background='#43a85d';$('#health').className='badge';$('#health').textContent='92% OK'};
+$('#save').onclick=async()=>{try{if(!window.miro||!miro.board)throw Error();const card=await miro.board.createAppCard({title:'FREE RIDE – Sicherheitsstatus',description:routes[route][1],style:{cardTheme:'#1f6f3d'},fields:[{value:'Route'},{value:routes[route][0]},{value:'Wetter'},{value:ws[wi][0]}]});await miro.board.viewport.zoomTo(card);$('#msg').textContent='Status wurde auf dem Miro-Board gespeichert.'}catch(e){$('#msg').textContent='Direkt im Browser aktiv. Für Miro als App-URL einbinden.'}};
+</script>
+</body></html>
