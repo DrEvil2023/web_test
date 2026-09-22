@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Free Ride Miro App</title>
+<script src="https://miro.com/app/static/sdk/v2/miro.js"></script>
+<style>
+body{font-family:Arial,sans-serif;margin:0;background:#eef2ef;color:#142018}
+.wrap{max-width:520px;margin:32px auto;padding:20px}
+.card{background:white;border:1px solid #dce4de;border-radius:18px;padding:20px}
+h1{margin:0 0 8px;font-size:24px}.muted{color:#66736a;font-size:14px}
+a{display:inline-block;margin-top:16px;padding:11px 14px;background:#1f6f3d;color:white;text-decoration:none;border-radius:10px;font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap"><div class="card"><h1>Free Ride</h1><div class="muted">Miro safety companion app.</div><a href="app.html">Open prototype</a></div></div>
+<script>
+(async()=>{
+  try{
+    if(window.miro&&miro.board&&miro.board.ui){
+      await miro.board.ui.on('icon:click',async()=>{await miro.board.ui.openPanel({url:'app.html'});});
+    }
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
